@@ -1,0 +1,145 @@
+# =============================================================
+# REST Client Test File for VS Code
+# =============================================================
+# Install the "REST Client" extension by Huachao Mao to use this file.
+# Click "Send Request" above each request to execute it.
+# 
+# To run these tests:
+# 1. Start the application: docker-compose up --build
+# 2. Wait for "Server is running" message
+# 3. Click "Send Request" on any request below
+# =============================================================
+
+# Variables - Change these as needed
+@baseUrl = http://localhost:3000
+@contentType = application/json
+
+# =============================================================
+# Health Check
+# =============================================================
+# Test if the server is running and responding
+# Expected: 200 OK with status "ok"
+
+### Health Check
+GET {{baseUrl}}/
+Accept: {{contentType}}
+
+# =============================================================
+# Get All Users
+# =============================================================
+# Retrieve a list of all users in the database
+# Expected: 200 OK with array of users
+
+### Get All Users
+GET {{baseUrl}}/api/users
+Accept: {{contentType}}
+
+# =============================================================
+# Get User by ID
+# =============================================================
+# Retrieve a specific user by their ID
+# Expected: 200 OK with user object (if exists)
+# Expected: 404 Not Found (if ID doesn't exist)
+
+### Get User by ID (exists)
+GET {{baseUrl}}/api/users/1
+Accept: {{contentType}}
+
+### Get User by ID (not found)
+GET {{baseUrl}}/api/users/999
+Accept: {{contentType}}
+
+### Get User by ID (invalid ID format)
+GET {{baseUrl}}/api/users/abc
+Accept: {{contentType}}
+
+# =============================================================
+# Create New User
+# =============================================================
+# Create a new user with name and email
+# Expected: 201 Created with new user object
+# Expected: 400 Bad Request (if validation fails)
+
+### Create User - Valid
+POST {{baseUrl}}/api/users
+Content-Type: {{contentType}}
+
+{
+  "name": "Alice Johnson",
+  "email": "alice@example.com"
+}
+
+### Create User - Another Example
+POST {{baseUrl}}/api/users
+Content-Type: {{contentType}}
+
+{
+  "name": "Charlie Brown",
+  "email": "charlie@example.com"
+}
+
+### Create User - Missing Name (should fail)
+POST {{baseUrl}}/api/users
+Content-Type: {{contentType}}
+
+{
+  "email": "noname@example.com"
+}
+
+### Create User - Missing Email (should fail)
+POST {{baseUrl}}/api/users
+Content-Type: {{contentType}}
+
+{
+  "name": "No Email User"
+}
+
+### Create User - Invalid Email Format (should fail)
+POST {{baseUrl}}/api/users
+Content-Type: {{contentType}}
+
+{
+  "name": "Bad Email",
+  "email": "not-an-email"
+}
+
+### Create User - Duplicate Email (should fail after first creation)
+POST {{baseUrl}}/api/users
+Content-Type: {{contentType}}
+
+{
+  "name": "John Duplicate",
+  "email": "john@example.com"
+}
+
+# =============================================================
+# Delete User
+# =============================================================
+# Delete a user by their ID
+# Expected: 200 OK with deleted user object (if exists)
+# Expected: 404 Not Found (if ID doesn't exist)
+
+### Delete User by ID
+DELETE {{baseUrl}}/api/users/3
+Accept: {{contentType}}
+
+### Delete User - Not Found
+DELETE {{baseUrl}}/api/users/999
+Accept: {{contentType}}
+
+### Delete User - Invalid ID
+DELETE {{baseUrl}}/api/users/abc
+Accept: {{contentType}}
+
+# =============================================================
+# Test Sequence
+# =============================================================
+# Run these in order to test the full CRUD flow:
+# 
+# 1. GET all users (see initial data)
+# 2. POST create a new user
+# 3. GET all users (verify new user)
+# 4. GET user by ID (verify single user)
+# 5. DELETE user
+# 6. GET all users (verify deletion)
+# =============================================================

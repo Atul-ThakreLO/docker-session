@@ -1,0 +1,60 @@
+# =============================================================
+# Docker Ignore File
+# =============================================================
+# Similar to .gitignore, this file tells Docker which files
+# to exclude when copying files into the image (COPY instruction).
+# 
+# Benefits:
+# - Smaller image size
+# - Faster builds
+# - Don't expose sensitive files (.env)
+# - Prevent overwriting container's node_modules
+# =============================================================
+
+# Dependencies - container installs its own
+node_modules
+npm-debug.log
+
+# Environment files - contain sensitive data
+.env
+.env.local
+.env.*.local
+
+# Git files - not needed in container
+.git
+.gitignore
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs
+
+# Docker files (not needed inside the image)
+Dockerfile
+docker-compose.yml
+docker-compose*.yml
+.dockerignore
+
+# Documentation
+README.md
+*.md
+
+# Test files (exclude in production builds)
+# Uncomment these for production:
+# test
+# tests
+# __tests__
+# *.test.js
+# *.spec.js
+
+# API testing file
+api.http
