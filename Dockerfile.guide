@@ -1,0 +1,13 @@
+# Step 1: Choose a base image (use FROM image:tag)
+
+# Step 2: Set working directory inside container (use WORKDIR /path)
+
+# Step 3: Copy package.json and package-lock.json first (use COPY)
+
+# Step 4: Install dependencies (use RUN npm install)
+
+# Step 5: Copy rest of source code (use COPY . .)
+
+# Step 6: Document the port your app listens on (use EXPOSE port)
+
+# Step 7: Define the startup command (use CMD ["executable", "args"])

@@ -1,0 +1,23 @@
+# Step 1: Specify compose file version (version: '3.8')
+
+# Step 2: Start services section (services:)
+
+# Step 3: Define app service (app:)
+# 3a: Build from local Dockerfile (build: .)
+# 3b: Map ports host:container (ports:)
+# 3c: Set environment variables (environment:)
+# - PORT, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
+# 3d: Depend on db service (depends_on:)
+# 3e: Set restart policy (restart: on-failure)
+
+# Step 4: Define db service (db:)
+# 4a: Use postgres image (image: postgres:15-alpine)
+# 4b: Set PostgreSQL env vars (environment:)
+# - POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB
+# 4c: Map database port (ports:)
+# 4d: Mount volumes (volumes:)
+# - Named volume for data: pgdata:/var/lib/postgresql/data
+# - Bind mount for init.sql: ./src/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+# Step 5: Declare named volumes section (volumes:)
+# - pgdata:

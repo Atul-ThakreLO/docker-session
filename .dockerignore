@@ -1,16 +1,3 @@
-# =============================================================
-# Docker Ignore File
-# =============================================================
-# Similar to .gitignore, this file tells Docker which files
-# to exclude when copying files into the image (COPY instruction).
-# 
-# Benefits:
-# - Smaller image size
-# - Faster builds
-# - Don't expose sensitive files (.env)
-# - Prevent overwriting container's node_modules
-# =============================================================
-
 # Dependencies - container installs its own
 node_modules
 npm-debug.log
@@ -56,5 +43,4 @@ README.md
 # *.test.js
 # *.spec.js
 
-# API testing file
 api.http
